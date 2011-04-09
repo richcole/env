@@ -1,1 +1,5 @@
-env/config/env/config/dot_Xresources
+emacs*foreground: wheat
+emacs*background: darkslategray
+emacs*cursorColor: white
+emacs*pointerColor: white
+

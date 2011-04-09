@@ -30,13 +30,13 @@ class InstallEnv
   end
 
   def run
-    config_path = "env/config"
+    config_path = Dir.pwd / "env/config"
     for file in Dir.glob(config_path / "*") do
       dot_file = File.basename(file).sub(/^dot_/, '.')
       install(file, dot_file)
     end
     
-    bin_path = "env/bin"
+    bin_path = Dir.pwd / "env/bin"
     local_bin_dir  = ENV["HOME"] / "bin"
     FileUtils.mkdir_p(local_bin_dir)
     for file in Dir.glob(bin_path / "*") do
