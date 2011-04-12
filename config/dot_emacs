@@ -8,7 +8,8 @@
 (font-lock-mode 0)
 
 (global-set-key "\C-cm" 'compile)
-(global-set-key "\C-cg" 'grep)
+(global-set-key "\C-cg" 'goto-line)
+(global-set-key "\C-c\C-g" 'grep)
 (global-set-key "\C-cr" 'replace-string)
 
 (setq make-backup-files nil)
