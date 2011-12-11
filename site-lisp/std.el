@@ -1,0 +1,11 @@
+(defun tl (x) (cdr x))
+(defun hd (x) (car x))
+(defun each (fun lst) 
+  (cond (lst (funcall fun (hd lst)) (each fun (tl lst)))))
+(each   (lambda (x) (message "Hello")) (list 1 2 3))
+(defun select (fun lst)
+  (if lst
+      (let ((x (hd lst)) (rest (select fun (tl lst))))
+        (if (funcall fun x) (cons x rest) (rest)))
+    ()))
+(select (lambda (y) (= 2 2)) (list 1 2 3))
