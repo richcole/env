@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+already_running=false
+f=/var/tmp/ssh-agent.$USER
+if [ -e $f ] ; then
+  source $f > /dev/null
+  if ssh-add -l > /dev/null 2>&1 ; then
+    echo "SSH Agent is already running."
+    already_running=true
+  fi
+fi
+
+if [ "$already_running" != "true" ] ; then
+  echo "SSH Agent is not running, starting it."
+  ssh-agent > $f
+  source $f > /dev/null
+
+  for f in ~/keys/*.pem ; do
+    ssh-add $f
+  done
+fi
+
+

@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/ruby1.8
 
 require 'fileutils'
 require 'logger'
@@ -29,7 +29,19 @@ class InstallEnv
     FileUtils.ln_s(file, dest)
   end
 
-  def run
+  def run(cmd)
+    puts "run: " + cmd
+    if ! system(cmd) then
+      raise "Command failed."
+    end
+  end
+
+  def install_packages
+    run "sudo apt-get install -y git-core emacs23 sudo sun-java6-jdk virtualbox-ose-guest-x11 virtualbox-ose-guest-dkms ruby1.8"
+    run "update-java-alternatives -s java-6-sun"
+  end
+
+  def install_files
     config_path = Dir.pwd / "env/config"
     for file in Dir.glob(config_path / "*") do
       dot_file = File.basename(file).sub(/^dot_/, '.')
@@ -46,4 +58,6 @@ class InstallEnv
   end
 end
 
-InstallEnv.new.run
+env = InstallEnv.new
+env.install_files
+env.install_packages

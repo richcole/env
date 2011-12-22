@@ -1,0 +1,28 @@
+#!/bin/bash
+
+[ -z "$PS1" ] && return
+
+HISTCONTROL=$HISTCONTROL${HISTCONTROL+:}ignoredups
+HISTCONTROL=ignoreboth
+
+shopt -s histappend
+shopt -s checkwinsize
+
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
+export PATH=$PATH:$HOME/env/bin
+export RUBYLIB=$RUBYLIB:$HOME/env/lib/ruby
+export PATH=/home/richcole/raspberry-pi/raspidev/arm-2011.03/bin:/home/richcole/raspberry-pi/raspidev/bin:$PATH
+
+source $HOME/bin/load-keys
+
